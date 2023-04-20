@@ -78,8 +78,6 @@ def run_environment():
             state, reward, terminal = env.step(random.randint (0, 2))
             print("  Reward obtained by the agent: {}".format(reward))
             state = np.squeeze(state)
-            
-            
 
         print("End of the episode")
         
