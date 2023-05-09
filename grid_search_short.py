@@ -47,7 +47,7 @@ def grid_search():
 
     # stuffs
     DQN_model = 1   # in case we design more models, we'll call the one we have now the 1st one
-    output_filename = "Grid_search_short.xlsx"
+    output_filename = "Strict_search_short.xlsx"
 
 
     if torch.cuda.is_available():
@@ -135,7 +135,7 @@ def grid_search():
 
                 # early stopping
                 # if the average of the previous 100 episodes was above 0.9, we've probably hit convergence so stop (to try and save time)
-                if episode % 10 == 0 and running_avg > 0.9:
+                if episode % 10 == 0 and running_avg == 1:
                     time_to_convergence = episode
                     break
 
