@@ -67,7 +67,7 @@ def grid_search():
                                             "avgRewards", "average_last_100_episodes", "best_average_100_episodes", "time_of_peak", "time_to_convergence"])
 
 
-
+    print("running grid search")
     idx = 0
     for params in grid:    
 
@@ -83,6 +83,7 @@ def grid_search():
 
         # for the results of this episode (and set of parameters)
         idx += 1
+        print(idx)
         RewardsList = []
         tempReward = []
         time_to_convergence = None

@@ -83,3 +83,6 @@ torch==2.0.0
 torchvision==0.15.1
 tornado==6.2
 tqdm==4.65.0
+sklearn==0.0.post1
+scikit-learn
+scikit-image
