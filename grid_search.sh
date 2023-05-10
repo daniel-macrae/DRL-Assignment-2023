@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=testingSSDLite
+#SBATCH --job-name=DRLcatch
 #SBATCH --time=18:00:00
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=gpu

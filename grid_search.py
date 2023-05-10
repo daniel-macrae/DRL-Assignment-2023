@@ -7,20 +7,33 @@ import pandas as pd
 from agent_and_memory import Agent, MemoryBuffer
 from Catch import CatchEnv
 
+import argparse
 
 
-def grid_search():
+def get_args_parser(add_help=True):
+    parser = argparse.ArgumentParser(description="PyTorch Detection Training", add_help=add_help)
+ 
+    parser.add_argument("--DQN", default=0, type=int,help="version of the DQN")
+    
+    parser.add_argument("--filename", default="grid_search", type=str, help="name of file to store the grid search results in")
+
+    return parser
+
+
+
+
+def grid_search(args):
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
     BATCH_SIZE = [32, 128, 256]
-    GAMMA = [0.8, 0.9, 0.99]
-    EPS_START = [0.8, 1]
-    EPS_END = [0, 0.05, 0.1]
-    EPS_DECAY = [1000, 2000, 3000]
-    LR = [1e-3, 1e-4]
-    MEMORYBUFFER = [1000, 5000]
+    GAMMA = [0.9, 0.99]
+    EPS_START = [0.8, 0.9, 1]
+    EPS_END = [0]
+    EPS_DECAY = [1000, 1500, 2000]
+    LR = [1e-3, 1e-4, 1e-5]
+    MEMORYBUFFER = [500, 1000, 5000]
     AMSGRAD = [True, False]
     TARGETNET_UPDATE_RATE = [10, 50]
 
@@ -40,14 +53,13 @@ def grid_search():
     print(len(grid))
 
 
-
     # AMOUNT OF GRID TO SAMPLE
     gridSampleSize = 0.6
 
-
     # stuffs
-    DQN_model = 1   # in case we design more models, we'll call the one we have now the 1st one
-    output_filename = "Strict_search_0.xlsx"
+    DQN_model = int(args.DQN)   # in case we design more models, we'll call the one we have now the 1st one
+    output_filename = str(args.filename) + ".xlsx"
+    print(output_filename)
 
 
     if torch.cuda.is_available():
@@ -134,8 +146,8 @@ def grid_search():
                 
 
                 # early stopping
-                # if the average of the previous 100 episodes was above 0.9, we've probably hit convergence so stop (to try and save time)
-                if episode % 10 == 0 and running_avg == 1:
+                # if the average of the previous 100 episodes was 1, we've hit convergence so stop (to try and save time)
+                if running_avg == 1:
                     time_to_convergence = episode
                     break
 
@@ -150,12 +162,20 @@ def grid_search():
         
         resultsDict = {**params.copy(), **tempDict}  # make a line for in the results dict
 
-        RESULTS_DATAFRAME.loc[idx] = resultsDict
+
+        # Let parallel runs write to the same results file
+        try:
+            RESULTS_DATAFRAME = pd.read_excel(output_filename)
+            RESULTS_DATAFRAME.loc[len(RESULTS_DATAFRAME)+1] = resultsDict
+        except:
+            RESULTS_DATAFRAME.loc[0] = resultsDict
+            output_filename = 'grid_backup.xlsx'
 
         RESULTS_DATAFRAME.to_excel(output_filename) # saves on every iteration (in case this takes long, or crashes, we can still pull the results out)
 
 
 
 if __name__ == '__main__':
-    grid_search()
+    args = get_args_parser().parse_args()
+    grid_search(args)
 
