@@ -27,15 +27,15 @@ def grid_search(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-    BATCH_SIZE = [32, 128, 256]
-    GAMMA = [0.9, 0.99]
-    EPS_START = [0.8, 0.9, 1]
-    EPS_END = [0]
-    EPS_DECAY = [1000, 1500, 2000]
-    LR = [1e-3, 1e-4, 1e-5]
-    MEMORYBUFFER = [500, 1000, 5000]
+    BATCH_SIZE = [32, 64, 128, 256]
+    GAMMA = [0.8, 0.9, 0.99]
+    EPS_START = [0.8, 0.85, 0.9, 0.95]
+    EPS_END = [0, 0.01, 0.05]
+    EPS_DECAY = [500, 1000, 1500, 2000]
+    LR = [1e-3, 5e-4, 1e-4]
+    MEMORYBUFFER = [1000, 5000, 10000]
     AMSGRAD = [True, False]
-    TARGETNET_UPDATE_RATE = [10, 50]
+    TARGETNET_UPDATE_RATE = [1, 5, 10, 20]
 
 
     hyper_grid = {'batch_size' : BATCH_SIZE,
@@ -54,7 +54,8 @@ def grid_search(args):
 
 
     # AMOUNT OF GRID TO SAMPLE
-    gridSampleSize = 0.6
+    gridSampleSize = 0.7
+    param_columns = list(grid[0].keys())
 
     # stuffs
     DQN_model = int(args.DQN)   # in case we design more models, we'll call the one we have now the 1st one
@@ -86,6 +87,13 @@ def grid_search(args):
         # random sampling...
         if random.random() > gridSampleSize:  # samples the grid
             continue # skips this set of parameters
+        
+        # check to see if these parameters have already been tried
+        try:
+            df = pd.read_excel(output_filename)
+            if (df[param_columns] == params).all(1).any():
+                continue
+        except: pass
 
         # otherwise, go on as normal:
         
@@ -169,10 +177,9 @@ def grid_search(args):
             RESULTS_DATAFRAME.loc[len(RESULTS_DATAFRAME)+1] = resultsDict
         except:
             RESULTS_DATAFRAME.loc[0] = resultsDict
-            RESULTS_DATAFRAME.to_excel(output_filename)
             #output_filename = 'grid_backup.xlsx'
-
-        RESULTS_DATAFRAME.to_excel(output_filename) # saves on every iteration (in case this takes long, or crashes, we can still pull the results out)
+        RESULTS_DATAFRAME.drop(RESULTS_DATAFRAME.filter(regex="Unname"), axis=1, inplace=True)
+        RESULTS_DATAFRAME.to_excel(output_filename, index=False) # saves on every iteration (in case this takes long, or crashes, we can still pull the results out)
 
 
 
