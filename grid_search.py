@@ -179,7 +179,7 @@ def grid_search(args):
             RESULTS_DATAFRAME.loc[0] = resultsDict
             #output_filename = 'grid_backup.xlsx'
         RESULTS_DATAFRAME.drop(RESULTS_DATAFRAME.filter(regex="Unname"), axis=1, inplace=True)
-        RESULTS_DATAFRAME.to_excel(output_filename, index=False) # saves on every iteration (in case this takes long, or crashes, we can still pull the results out)
+        RESULTS_DATAFRAME.to_excel(output_filename) # saves on every iteration (in case this takes long, or crashes, we can still pull the results out)
 
 
 
