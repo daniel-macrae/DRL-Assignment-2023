@@ -27,13 +27,13 @@ def grid_search(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-    BATCH_SIZE = [32, 64, 128, 256]
-    GAMMA = [0.8, 0.9, 0.99]
-    EPS_START = [0.8, 0.85, 0.9, 0.95]
-    EPS_END = [0, 0.01, 0.05]
-    EPS_DECAY = [500, 1000, 1500, 2000]
-    LR = [1e-3, 5e-4, 1e-4]
-    MEMORYBUFFER = [1000, 5000, 10000]
+    BATCH_SIZE = [16, 32, 64, 128]
+    GAMMA = [0.6, 0.8, 0.9, 0.99]
+    EPS_START = [0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1]
+    EPS_END = [0]
+    EPS_DECAY = [300, 500, 700, 900]
+    LR = [1e-3, 5e-4, 1e-4, 5e-5, 1e-5]
+    MEMORYBUFFER = [5000, 10000, 50000]
     AMSGRAD = [True, False]
     TARGETNET_UPDATE_RATE = [1, 5, 10, 20]
 

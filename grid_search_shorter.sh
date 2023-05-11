@@ -9,4 +9,4 @@
 #SBATCH --mail-user=d.macrae@student.rug.nl
 module load Miniconda3
 source activate deepRL
-python grid_search.py --DQN 1 --filename "wednesday_grid_0"
+python grid_search.py --DQN 1 --filename "thursday_grid_0"
