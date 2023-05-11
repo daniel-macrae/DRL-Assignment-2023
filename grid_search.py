@@ -64,7 +64,7 @@ def grid_search(args):
 
 
     if torch.cuda.is_available():
-        num_episodes = 5000
+        num_episodes = 4000
     else:
         num_episodes = 50
 
@@ -157,7 +157,7 @@ def grid_search(args):
                 # if the average of the previous 100 episodes was 1, we've hit convergence so stop (to try and save time)
                 if running_avg == 1:
                     time_to_convergence = episode
-                    break
+                #    break
 
 
         # store the results in a dataframe, making a new row for this trial here
