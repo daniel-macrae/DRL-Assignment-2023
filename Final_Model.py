@@ -7,15 +7,16 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 ## DQN Parameters
-params = {'batch_size' : 128,
+params = {'batch_size' : 32,
                 'gamma' : 0.99,
                 'eps_start' : 0.9,
                 'eps_end' : 0,
                 'eps_decay' : 500,
-                'learning_rate' : 1e-3,
-                'memory_buffer' : 50000,
+                'learning_rate' : 1e-4,
+                'memory_buffer' : 10000,
                 'ams_grad' : True,
-                'targetnet_update_rate' : 10}
+                'targetnet_update_rate' : 10
+        }
 
 if torch.cuda.is_available():
     num_episodes = 5000
