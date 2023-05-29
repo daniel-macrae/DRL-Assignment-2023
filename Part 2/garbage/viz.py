@@ -2,11 +2,16 @@ import gymnasium as gym
 import numpy as np
 import imageio
 
+
+# ALSO GOOD:
+# https://stable-baselines.readthedocs.io/en/master/guide/examples.html#bonus-make-a-gif-of-a-trained-agent
+
+
 #
 folder = "gifs/"
 
 # Make the environment and the initial observation 
-env_name = 'Ant-v4'
+env_name = 'Walker2d-v4'
 env = gym.make(env_name, render_mode='rgb_array')
 obs_dim = env.observation_space.shape
 act_dim = env.action_space.shape[0]
