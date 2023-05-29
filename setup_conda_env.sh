@@ -11,3 +11,8 @@ module load Miniconda3
 conda create -n deepRL python=3.8
 source activate deepRL
 pip install -r requirements.txt
+pip install stable-baselines3
+pip install gymnasium
+pip install gymnasium[box2d]
+pip install gymnasium[extra]
+pip install gymnasium[mujoco]
