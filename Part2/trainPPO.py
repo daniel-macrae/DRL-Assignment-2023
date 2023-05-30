@@ -21,7 +21,7 @@ modelName = "PPO_Bipedal_1"
 log_dir = "tmp/"
 os.makedirs(log_dir, exist_ok=True)
 
-results_filename = log_dir + modelName + ".csv"
+results_filename = log_dir + modelName + "_"
 # this will save the best model during training
 callback = SaveOnBestTrainingRewardCallback(check_freq=100, log_dir=log_dir, file_name=modelName)
 
