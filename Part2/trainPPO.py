@@ -32,7 +32,7 @@ callback = SaveOnBestTrainingRewardCallback(check_freq=100, log_dir=log_dir, fil
 # Create and wrap the environment
 
 vec_env = make_vec_env(env_name, n_envs=16)
-vec_env = VecMonitor(vec_env, results_filename)
+vec_env = VecMonitor(vec_env, results_filename)  # this is the monitor, that saves the training episode results to the csv file
 
 
 ### MAKE THE MODEL  ###
