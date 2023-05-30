@@ -37,7 +37,7 @@ class SaveOnBestTrainingRewardCallback(BaseCallback):
                 if self.verbose > 0:
                     print(f"Num timesteps: {self.num_timesteps}")
                     print(
-                        f"Best mean reward: {self.best_mean_reward:.2f} - Last mean reward per episode: {mean_reward:.2f}"
+                        f"   Best mean reward: {self.best_mean_reward:.2f} - Last mean reward per episode: {mean_reward:.2f}"
                     )
 
                 # New best model, you could save the agent here
@@ -45,7 +45,7 @@ class SaveOnBestTrainingRewardCallback(BaseCallback):
                     self.best_mean_reward = mean_reward
                     # Example for saving best model
                     if self.verbose > 0:
-                        print(f"Saving new best model to {self.save_path}.zip")
+                        print(f" *  Saving new best model to {self.save_path}.zip")
                     self.model.save(self.save_path)
 
         return True
