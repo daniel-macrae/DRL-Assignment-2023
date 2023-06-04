@@ -10,6 +10,8 @@ from stable_baselines3.common.vec_env import VecMonitor
 from Callbacks import SaveOnBestTrainingRewardCallback
 
 
+print("CONDA ENV:", os.environ["CONDA_PREFIX"])
+
 env_name = "BipedalWalker-v3"
 modelName = "PPO_Bipedal_1"
 

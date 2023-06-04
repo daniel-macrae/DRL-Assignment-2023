@@ -7,5 +7,5 @@
 #SBATCH --mail-type=FAIL,END
 #SBATCH --mail-user=d.macrae@student.rug.nl
 module load Miniconda3
-source activate deepRL
+source activate gymEnv
 python trainPPO.py
