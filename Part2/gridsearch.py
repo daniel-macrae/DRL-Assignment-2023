@@ -62,8 +62,10 @@ def custom_scorer(estimator, X, y):
     mean_reward = train_model(estimator.get_params())
     return mean_reward
 
+vec_env = make_vec_env(env_name, n_envs=16)
+vec_env = VecMonitor(vec_env, results_filename)
 # Create an instance of GridSearchCV with the training function, parameter grid, and custom scorer
-grid_search = GridSearchCV(estimator=PPO('MlpPolicy', env), param_grid=param_grid, scoring=custom_scorer)
+grid_search = GridSearchCV(estimator=PPO('MlpPolicy', vec_env), param_grid=param_grid, scoring=custom_scorer)
 
 # Run the grid search
 grid_search.fit(X=None, y=None)
