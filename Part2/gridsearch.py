@@ -1,5 +1,5 @@
 from sklearn.model_selection import GridSearchCV
-from stable_baselines3.common.envs import VecNormalize
+#from stable_baselines3.common.envs import VecNormalize
 from Callbacks import SaveOnBestTrainingRewardCallback
 import gymnasium as gym
 import numpy as np
@@ -27,15 +27,16 @@ results_filename = log_dir + modelName + "_"
 
 # Define the parameter grid
 param_grid = {
-    'n_steps': [1024, 2048, 4096],
-    'batch_size': [32, 64, 128],
-    'gae_lambda': [0.9, 0.95, 0.99],
-    'gamma': [0.99, 0.999, 0.995],
-    'n_epochs': [5, 10, 20],
-    'ent_coef': [0.0, 0.0, 0.1],
-    'learning_rate': [1e-4, 5e-4, 1e-3],
-    'clip_range': [0.1, 0.2, 0.3]
+    'n_steps': [1024], #, 2048, 4096],
+    'batch_size': [32], #, 64, 128],
+    'gae_lambda': [0.9], #, 0.95, 0.99],
+    'gamma': [0.99], #, 0.999, 0.995],
+    'n_epochs': [5], #, 10, 20],
+    'ent_coef': [0.0], #, 0.0, 0.1],
+    'learning_rate': [1e-4], #, 5e-4, 1e-3],
+    'clip_range': [0.1], #, 0.2, 0.3]
 }
+
 
 # Define the SaveOnBestTrainingRewardCallback
 callback = SaveOnBestTrainingRewardCallback(check_freq=10000, log_dir=log_dir, file_name=modelName)
