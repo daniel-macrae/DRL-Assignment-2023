@@ -12,8 +12,8 @@ from stable_baselines3.common.vec_env import VecMonitor
 
 from Callbacks import SaveOnBestTrainingRewardCallback
 
-env_name = "CliffWalking-v0"
-modelName = "PPO_CliffWalking_1"
+env_name = "Pendulum-v1"
+modelName = "PPO_Pendulum_1"
 
 env = gym.make(env_name)
 
