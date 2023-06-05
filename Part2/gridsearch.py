@@ -57,10 +57,16 @@ def train_model(params):
 #grid_search = GridSearchCV(estimator=PPO('MlpPolicy', env), param_grid=param_grid, scoring='neg_mean_squared_error')
 #grid_search.fit(X=None, y=None, groups=None)
 
+# Define the custom scorer based on the mean reward
+def custom_scorer(estimator, X, y):
+    mean_reward = train_model(estimator.get_params())
+    return mean_reward
 
-grid_search = GridSearchCV(estimator=None, param_grid=param_grid, scoring='neg_mean_reward')
-grid_search.fit(train_model)
+# Create an instance of GridSearchCV with the training function, parameter grid, and custom scorer
+grid_search = GridSearchCV(estimator=PPO('MlpPolicy', env), param_grid=param_grid, scoring=custom_scorer)
 
+# Run the grid search
+grid_search.fit(X=None, y=None)
 
 # Access the best hyperparameters and the best model
 best_params = grid_search.best_params_
