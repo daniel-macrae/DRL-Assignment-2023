@@ -10,13 +10,25 @@ from Callbacks import SaveOnBestTrainingRewardCallback
 #env_name = "BipedalWalker-v3"
 #modelName = "PPO_Bipedal_1"
 
+
+def create_log_file(log_file):
+    # Check if the file already exists
+    if not os.path.exists(log_file):
+        # Create the directory if it doesn't exist
+        os.makedirs(os.path.dirname(log_file), exist_ok=True)
+        
+        # Create the file
+        with open(log_file, 'w') as file:
+            pass  # Do nothing, just create an empty file
+
+
 env_name = "CliffWalking-v0"
 modelName = "PPO_CliffWalking_1"
 
 log_dir = "tmp/gridsearch/"
 os.makedirs(log_dir, exist_ok=True)
 results_filename = log_dir + modelName + "_"
-callback = SaveOnBestTrainingRewardCallback(check_freq=1000, log_dir=log_dir, file_name=modelName)
+
 
 # Define the parameter combinations to test
 n_steps_values = [1024]#, 2048, 4096]
@@ -49,7 +61,9 @@ for n_steps in n_steps_values:
                                             ent_coef=ent_coef,
                                             learning_rate=learning_rate,
                                             clip_range=clip_range)
-
+                                
+                                log_file_name = modelName + "_" + f"n_steps={n_steps}_batch_size={batch_size}_gae_lambda={gae_lambda}_gamma={gamma}_n_epochs={n_epochs}_ent_coef={ent_coef}_learning_rate={learning_rate}_clip_range={clip_range}.csv"
+                                callback = SaveOnBestTrainingRewardCallback(check_freq=1000, log_dir=log_dir, file_name=log_file_name)
                                 timesteps = 5e6
                                 model.learn(total_timesteps=int(timesteps), callback=callback)
 
