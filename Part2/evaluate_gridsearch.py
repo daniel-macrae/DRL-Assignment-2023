@@ -56,7 +56,10 @@ max_average_reward_file = ""
 
 with open(output_file_path, "r") as output_file:
     for line in output_file:
-        file_name, average_reward = line.strip().split(": ")
+        try:
+            file_name, average_reward = line.strip().split(": ")
+        except:
+            print(line)
         average_reward = float(average_reward)
 
         if average_reward > max_average_reward:
