@@ -25,9 +25,10 @@ for log_file in os.listdir(log_dir):
             for line in log_file:
                 if not line.startswith("#"):  # Skip comment lines
                     try:
+                        print(line)
                         reward = float(re.findall(r"[-+]?\d*\.\d+|\d+", line)[-1])  # Extract the last float number
-                        #reward = float(line.split(",")[0])  # Extract the reward value
-                        print(reward)
+                        
+                        #print(reward)
                         rewards.append(reward)
                     except:
                         print("An exception occurred, could not turn to float: ", line.split(",")[0])
