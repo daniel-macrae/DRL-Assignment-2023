@@ -17,7 +17,9 @@ for log_file in os.listdir(log_dir):
     log_file_path = os.path.join(log_dir, log_file)
     # checking if it is a file
     if os.path.isfile(log_file_path):
-        #print(log_file_path)
+        if log_file.startswith(".nfs"):
+            continue  # Skip files starting with ".nfs"
+       
         # Load the log file and extract the reward values
         rewards = []
         with open(log_file_path, "r") as log_file:
