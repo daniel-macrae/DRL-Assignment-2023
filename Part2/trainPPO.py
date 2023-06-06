@@ -10,15 +10,11 @@ from stable_baselines3.common.vec_env import VecMonitor
 from Callbacks import SaveOnBestTrainingRewardCallback
 
 
-<<<<<<< HEAD
 #env_name = "BipedalWalker-v3"
-=======
-print("CONDA ENV:", os.environ["CONDA_PREFIX"])
+#modelName = "PPO_Bipedal_1"
 
->>>>>>> bd88d10e80f17d317448f561fb86a7742a99c625
-env_name = "BipedalWalker-v3"
-
-modelName = "PPO_Bipedal_1"
+env_name = "CliffWalking-v0"
+modelName = "PPO_CliffWalking_1"
 
 
 

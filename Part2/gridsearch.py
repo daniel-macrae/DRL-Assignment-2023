@@ -12,8 +12,8 @@ from stable_baselines3.common.vec_env import VecMonitor
 
 from Callbacks import SaveOnBestTrainingRewardCallback
 
-env_name = "Pendulum-v1"
-modelName = "PPO_Pendulum_1"
+env_name = "CliffWalking-v0"
+modelName = "PPO_CliffWalking_1"
 
 env = gym.make(env_name)
 
@@ -42,6 +42,7 @@ param_grid = {
 callback = SaveOnBestTrainingRewardCallback(check_freq=10000, log_dir=log_dir, file_name=modelName)
 
 # Define the function for training and evaluation
+# Define the function for training and evaluation
 def train_model(params):
     timesteps = 5e6
 
@@ -53,20 +54,9 @@ def train_model(params):
     
     return mean_reward
 
-
-#grid_search = GridSearchCV(estimator=PPO('MlpPolicy', env), param_grid=param_grid, scoring='neg_mean_squared_error')
-#grid_search.fit(X=None, y=None, groups=None)
-
-# Define the custom scorer based on the mean reward
-def custom_scorer(estimator, X, y):
-    mean_reward = train_model(estimator.get_params())
-    return mean_reward
-
-# Create an instance of GridSearchCV with the training function, parameter grid, and custom scorer
-grid_search = GridSearchCV(estimator=PPO('MlpPolicy', env), param_grid=param_grid, scoring=custom_scorer)
-
-# Run the grid search
-grid_search.fit(X=None, y=None)
+# Create an instance of GridSearchCV with the training function, parameter grid, and scoring
+grid_search = GridSearchCV(estimator=None, param_grid=param_grid, scoring='neg_mean_squared_error')
+grid_search.fit(X=None, y=None, groups=None, estimator=train_model)
 
 # Access the best hyperparameters and the best model
 best_params = grid_search.best_params_
