@@ -12,7 +12,7 @@ output_file_path = "gridsearch/average_rewards.csv"
 average_rewards = []
 
 print("Average Reward over the last 1000 episodes:")
-
+i = 0
 for log_file in os.listdir(log_dir):
 
     log_file_path = os.path.join(log_dir, log_file)
@@ -25,15 +25,16 @@ for log_file in os.listdir(log_dir):
             for line in log_file:
                 if not line.startswith("#"):  # Skip comment lines
                     try:
-                        print(line)
-                        time = float(re.findall(r"[-+]?\d*\.\d+|\d+", line)[-1])  # Extract the last float number
-                        print(time)
+                        #print(line)
+                        #time = float(re.findall(r"[-+]?\d*\.\d+|\d+", line)[-1])  # Extract the last float number
                         reward = float(line.split(",")[0])  # Extract the reward value
-                        print(reward)
+                        if i<4:
+                            print(reward)
                         rewards.append(reward)
                     except:
                         print("An exception occurred, could not turn to float: ", line.split(",")[0])
                         continue
+                i += 1
 
         # Calculate the average reward over the last 1000 episodes
         last_1000_rewards = rewards[-1000:]
