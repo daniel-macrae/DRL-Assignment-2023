@@ -20,7 +20,7 @@ callback = SaveOnBestTrainingRewardCallback(check_freq=1000, log_dir=log_dir, fi
 
 # Define the parameter combinations to test
 n_steps_values = [1024]#, 2048, 4096]
-batch_size_values = [32]#, 64, 128]
+batch_size_values = [32, 64]#, 128]
 gae_lambda_values = [0.9]#, 0.95, 0.99]
 gamma_values = [0.99]#, 0.995, 0.999]
 n_epochs_values = [5]#, 10, 20]
