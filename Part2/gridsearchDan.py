@@ -15,24 +15,13 @@ def gridSearchPPO(n_ENVS):
     #env_name = "CliffWalking-v0"
     #modelName = "PPO_CliffWalking_1"
 
-<<<<<<< Updated upstream
-env_name = "CliffWalking-v0"
-modelName = "PPO_CliffWalking_1"
 
-#env_name = "BipedalWalker-v3"
-#modelName = "PPO_Bipedal_1"
-
-log_dir = "gridsearch/"
-os.makedirs(log_dir, exist_ok=True)
-model_filename_base = log_dir + modelName + "_"
-=======
     env_name = "BipedalWalker-v3"
     modelName = "PPO_Bipedal_1"
 
     log_dir = "gridsearch/"
     os.makedirs(log_dir, exist_ok=True)
     model_filename_base = log_dir + modelName + "_"
->>>>>>> Stashed changes
 
 
     # Define the parameter combinations to test
