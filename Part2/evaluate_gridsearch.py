@@ -2,8 +2,7 @@ import numpy as np
 import os
 
 log_dir = "gridsearch"  
-output_file_path = "gridsearch/average_rewards.cvs"
-os.makedirs(output_file_path, exist_ok=True)
+output_file_path = "gridsearch/average_rewards.csv"
 
 average_rewards = []
 
