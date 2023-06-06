@@ -21,9 +21,12 @@ for log_file in os.listdir(log_dir):
         with open(log_file_path, "r") as log_file:
             for line in log_file:
                 if not line.startswith("#"):  # Skip comment lines
-                    next(log_file) 
-                    reward = float(line.split(",")[0])  # Extract the reward value
-                    rewards.append(reward)
+                    try:
+                        reward = float(line.split(",")[0])  # Extract the reward value
+                        rewards.append(reward)
+                    except:
+                        print("An exception occurred, could not turn to float: ", line.split(",")[0])
+                        continue
 
         # Calculate the average reward over the last 1000 episodes
         last_1000_rewards = rewards[-1000:]
