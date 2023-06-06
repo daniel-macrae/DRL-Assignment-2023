@@ -1,31 +1,15 @@
-from sklearn.model_selection import GridSearchCV
-#from stable_baselines3.common.envs import VecNormalize
-from Callbacks import SaveOnBestTrainingRewardCallback
-import gymnasium as gym
+import gym
 import numpy as np
 import os
-
-from stable_baselines3 import A2C, PPO, TD3 # these are the algorithms (models) we can use
-from stable_baselines3.common.monitor import Monitor
+from stable_baselines3 import PPO
 from stable_baselines3.common.env_util import make_vec_env
-from stable_baselines3.common.vec_env import VecMonitor
+from sklearn.model_selection import GridSearchCV
 
-from Callbacks import SaveOnBestTrainingRewardCallback
+env_name = "Pendulum-v1"
 
-env_name = "CliffWalking-v0"
-modelName = "PPO_CliffWalking_1"
-
+# Create the environment
 env = gym.make(env_name)
 
-###   TRAINING UTILS  ###
-# directory to save the log files in
-# Logs will be saved in log_dir/modelName.csv
-log_dir = "tmp/gridsearch/"
-os.makedirs(log_dir, exist_ok=True)
-
-results_filename = log_dir + modelName + "_"
-
-# Define the parameter grid
 param_grid = {
     'n_steps': [1024], #, 2048, 4096],
     'batch_size': [32], #, 64, 128],
@@ -37,30 +21,15 @@ param_grid = {
     'clip_range': [0.1], #, 0.2, 0.3]
 }
 
+# Create the PPO model
+model = PPO('MlpPolicy', env)
 
-# Define the SaveOnBestTrainingRewardCallback
-callback = SaveOnBestTrainingRewardCallback(check_freq=10000, log_dir=log_dir, file_name=modelName)
+# Create the grid search object
+grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=3)
 
-# Define the function for training and evaluation
-# Define the function for training and evaluation
-def train_model(params):
-    timesteps = 5e6
+# Fit the grid search object to perform the search
+grid_search.fit(env)
 
-    vec_env = make_vec_env(env_name, n_envs=16)
-    vec_env = VecMonitor(vec_env, results_filename)
-    model = PPO('MlpPolicy', vec_env, verbose=0, **params)
-    model.learn(total_timesteps=int(timesteps), callback=callback)
-    mean_reward = callback.best_mean_reward  # Retrieve the best mean reward from the callback
-    
-    return mean_reward
-
-# Create an instance of GridSearchCV with the training function, parameter grid, and scoring
-grid_search = GridSearchCV(estimator=None, param_grid=param_grid, scoring='neg_mean_squared_error')
-grid_search.fit(X=None, y=None, groups=None)
-
-# Access the best hyperparameters and the best model
-best_params = grid_search.best_params_
-best_model = grid_search.best_estimator_
-
-print(best_params)
-print(best_model)
+# Print the best parameters and score
+print("Best Parameters: ", grid_search.best_params_)
+print("Best Score: ", grid_search.best_score_)
