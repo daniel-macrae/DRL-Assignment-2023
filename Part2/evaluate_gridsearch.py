@@ -35,7 +35,7 @@ for log_file in os.listdir(log_dir):
 
         # Save the average reward and corresponding file name to the output file
         with open(output_file_path, "a") as output_file:
-            file_name = os.path.basename(log_file.strip())
+            file_name = os.path.basename(log_file.name.strip())
             output_file.write(f"{log_file}: {average_reward}\n")
 
         average_rewards.append((log_file, average_reward))  # Save the values in a list for later use
@@ -56,4 +56,4 @@ with open(output_file_path, "r") as output_file:
             max_average_reward_file = file_name
 
 print("Maximum Average Reward:", max_average_reward)
-print("File Name:", os.path.basename(max_average_reward_file.strip()))
+print("File Name:", os.path.basename(max_average_reward_file))
