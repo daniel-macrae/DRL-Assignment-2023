@@ -21,6 +21,7 @@ for log_file in os.listdir(log_dir):
         with open(log_file_path, "r") as log_file:
             for line in log_file:
                 if not line.startswith("#"):  # Skip comment lines
+                    next(log_file) 
                     reward = float(line.split(",")[0])  # Extract the reward value
                     rewards.append(reward)
 
