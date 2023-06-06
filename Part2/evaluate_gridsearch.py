@@ -1,5 +1,6 @@
 import numpy as np
 import os
+import re
 
 log_dir = "gridsearch"  
 output_file_path = "gridsearch/average_rewards.csv"
@@ -21,7 +22,8 @@ for log_file in os.listdir(log_dir):
             for line in log_file:
                 if not line.startswith("#"):  # Skip comment lines
                     try:
-                        reward = float(line.split(",")[0])  # Extract the reward value
+                        reward = float(re.findall(r"[-+]?\d*\.\d+|\d+", line)[-1])  # Extract the last float number
+                        #reward = float(line.split(",")[0])  # Extract the reward value
                         rewards.append(reward)
                     except:
                         print("An exception occurred, could not turn to float: ", line.split(",")[0])
