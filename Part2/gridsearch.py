@@ -1,9 +1,23 @@
 import gym
 import numpy as np
 import os
-from stable_baselines3 import PPO
 from stable_baselines3.common.env_util import make_vec_env
 from sklearn.model_selection import GridSearchCV
+
+from sklearn.base import BaseEstimator, ClassifierMixin
+from stable_baselines3 import PPO
+
+class StableBaselinesWrapper(BaseEstimator, ClassifierMixin):
+    def __init__(self, **kwargs):
+        self.model = PPO(**kwargs)
+    
+    def fit(self, X, y=None):
+        self.model.learn(total_timesteps=len(X))
+        return self
+    
+    def predict(self, X, y=None):
+        return self.model.predict(X)
+
 
 env_name = "Pendulum-v1"
 
@@ -22,7 +36,10 @@ param_grid = {
 }
 
 # Create the PPO model
-model = PPO('MlpPolicy', env)
+#model = PPO('MlpPolicy', env)
+
+# Create the PPO model wrapper
+model = StableBaselinesWrapper()
 
 # Create the grid search object
 grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=3)
