@@ -4,21 +4,22 @@ import os
 from stable_baselines3.common.env_util import make_vec_env
 from sklearn.model_selection import GridSearchCV
 
-from sklearn.base import BaseEstimator, ClassifierMixin
-from stable_baselines3 import PPO
+from stable_baselines3.common.envs import DummyVecEnv
 
 class StableBaselinesWrapper(BaseEstimator, ClassifierMixin):
-    def __init__(self, **kwargs):
-        self.model = PPO(**kwargs)
+    def __init__(self, policy, env_name, **kwargs):
+        self.policy = policy
+        self.env_name = env_name
+        self.model = None
     
     def fit(self, X, y=None):
+        env = DummyVecEnv([lambda: gym.make(self.env_name)])
+        self.model = PPO(self.policy, env, **kwargs)
         self.model.learn(total_timesteps=len(X))
         return self
     
     def predict(self, X, y=None):
         return self.model.predict(X)
-
-
 env_name = "Pendulum-v1"
 
 # Create the environment
@@ -39,7 +40,7 @@ param_grid = {
 #model = PPO('MlpPolicy', env)
 
 # Create the PPO model wrapper
-model = StableBaselinesWrapper()
+model = StableBaselinesWrapper('MlpPolicy', env_name)
 
 # Create the grid search object
 grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=3)
