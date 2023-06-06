@@ -12,11 +12,11 @@ from Callbacks import SaveOnBestTrainingRewardCallback
 
 
 
-#env_name = "CliffWalking-v0"
-#modelName = "PPO_CliffWalking_1"
+env_name = "CliffWalking-v0"
+modelName = "PPO_CliffWalking_1"
 
-env_name = "BipedalWalker-v3"
-modelName = "PPO_Bipedal_1"
+#env_name = "BipedalWalker-v3"
+#modelName = "PPO_Bipedal_1"
 
 log_dir = "gridsearch/"
 os.makedirs(log_dir, exist_ok=True)

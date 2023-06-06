@@ -62,7 +62,7 @@ for n_steps in n_steps_values:
                                             learning_rate=learning_rate,
                                             clip_range=clip_range)
                                 
-                                log_file_name = modelName + "_" + f"n_steps={n_steps}_batch_size={batch_size}_gae_lambda={gae_lambda}_gamma={gamma}_n_epochs={n_epochs}_ent_coef={ent_coef}_learning_rate={learning_rate}_clip_range={clip_range}"
+                                log_file_name = modelName + "_" + f"n_steps={n_steps}_batch_size={batch_size}_gae_lambda={gae_lambda}_gamma={gamma}_n_epochs={n_epochs}_ent_coef={ent_coef}_learning_rate={learning_rate}_clip_range={clip_range}.csv"
                                 callback = SaveOnBestTrainingRewardCallback(check_freq=1000, log_dir=log_dir, file_name=log_file_name)
                                 timesteps = 5e6
                                 model.learn(total_timesteps=int(timesteps), callback=callback)
