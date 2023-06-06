@@ -56,7 +56,7 @@ def train_model(params):
 
 # Create an instance of GridSearchCV with the training function, parameter grid, and scoring
 grid_search = GridSearchCV(estimator=None, param_grid=param_grid, scoring='neg_mean_squared_error')
-grid_search.fit(X=None, y=None, groups=None, estimator=train_model)
+grid_search.fit(X=None, y=None, groups=None)
 
 # Access the best hyperparameters and the best model
 best_params = grid_search.best_params_
