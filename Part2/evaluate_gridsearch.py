@@ -12,9 +12,10 @@ output_file_path = "gridsearch/average_rewards.csv"
 average_rewards = []
 
 print("Average Reward over the last 1000 episodes:")
-i = 0
-for log_file in os.listdir(log_dir):
 
+for log_file in os.listdir(log_dir):
+    print("new file")
+    i = 0
     log_file_path = os.path.join(log_dir, log_file)
     # checking if it is a file
     if os.path.isfile(log_file_path):
@@ -29,9 +30,11 @@ for log_file in os.listdir(log_dir):
                         #time = float(re.findall(r"[-+]?\d*\.\d+|\d+", line)[-1])  # Extract the last float number
                         reward = float(line.split(",")[0])  # Extract the reward value
                         if i<4:
+                            print("new line")
                             print(reward)
                         rewards.append(reward)
                     except:
+                        print("new line")
                         print("An exception occurred, could not turn to float: ", line.split(",")[0])
                         continue
                 i += 1
