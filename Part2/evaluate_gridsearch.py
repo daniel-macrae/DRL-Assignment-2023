@@ -2,6 +2,10 @@ import numpy as np
 import os
 import re
 
+#r: Represents the reward value obtained during an episode of the training process.
+#l: Indicates the number of steps taken during that episode.
+#t: Represents the elapsed time (in seconds) during that episode.
+
 log_dir = "gridsearch"  
 output_file_path = "gridsearch/average_rewards.csv"
 
@@ -23,6 +27,7 @@ for log_file in os.listdir(log_dir):
                     try:
                         reward = float(re.findall(r"[-+]?\d*\.\d+|\d+", line)[-1])  # Extract the last float number
                         #reward = float(line.split(",")[0])  # Extract the reward value
+                        print(reward)
                         rewards.append(reward)
                     except:
                         print("An exception occurred, could not turn to float: ", line.split(",")[0])
@@ -31,7 +36,7 @@ for log_file in os.listdir(log_dir):
         # Calculate the average reward over the last 1000 episodes
         last_1000_rewards = rewards[-1000:]
         average_reward = np.mean(last_1000_rewards)
-        print(log_file,": ", average_reward)
+        print(average_reward, " , for: ", log_file.name.strip())
 
         # Save the average reward and corresponding file name to the output file
         with open(output_file_path, "a") as output_file:
@@ -57,3 +62,6 @@ with open(output_file_path, "r") as output_file:
 
 print("Maximum Average Reward:", max_average_reward)
 print("File Name:", os.path.basename(max_average_reward_file))
+
+
+# 300 points in 1600 time steps.
