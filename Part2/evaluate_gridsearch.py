@@ -7,15 +7,13 @@ import re
 #t: Represents the elapsed time (in seconds) during that episode.
 
 log_dir = "gridsearch"  
-output_file_path = "gridsearch/average_rewards.csv"
+output_file_path = "gridsearch/grid_eval/average_rewards.csv"
 
 average_rewards = []
 
 print("Average Reward over the last 1000 episodes:")
 
 for log_file in os.listdir(log_dir):
-    print("new file")
-    i = 0
     log_file_path = os.path.join(log_dir, log_file)
     # checking if it is a file
     if os.path.isfile(log_file_path):
@@ -29,20 +27,16 @@ for log_file in os.listdir(log_dir):
                         #print(line)
                         #time = float(re.findall(r"[-+]?\d*\.\d+|\d+", line)[-1])  # Extract the last float number
                         reward = float(line.split(",")[0])  # Extract the reward value
-                        if i<4:
-                            print("new line")
-                            print(reward)
+    
                         rewards.append(reward)
                     except:
-                        print("new line")
                         print("An exception occurred, could not turn to float: ", line.split(",")[0])
                         continue
-                i += 1
 
         # Calculate the average reward over the last 1000 episodes
         last_1000_rewards = rewards[-1000:]
         average_reward = np.mean(last_1000_rewards)
-        print(average_reward, " , for: ", log_file.name.strip())
+        print("average reward is: ", average_reward, " , for", log_file.name.strip())
 
         # Save the average reward and corresponding file name to the output file
         with open(output_file_path, "a") as output_file:
