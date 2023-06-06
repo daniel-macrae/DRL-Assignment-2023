@@ -30,7 +30,8 @@ for log_file in os.listdir(log_dir):
     
                         rewards.append(reward)
                     except:
-                        print("An exception occurred, could not turn to float: ", line.split(",")[0])
+                        print("could not turn to float: ", line.split(",")[0])
+                        print("in file: ", log_file_path )
                         continue
 
         # Calculate the average reward over the last 1000 episodes
@@ -41,9 +42,9 @@ for log_file in os.listdir(log_dir):
         # Save the average reward and corresponding file name to the output file
         with open(output_file_path, "a") as output_file:
             file_name = os.path.basename(log_file.name.strip())
-            output_file.write(f"{log_file}: {average_reward}\n")
+            output_file.write(f"{file_name}: {average_reward}\n")
 
-        average_rewards.append((log_file, average_reward))  # Save the values in a list for later use
+        average_rewards.append((file_name, average_reward))  # Save the values in a list for later use
 
 print("Average rewards saved to:", output_file_path)
 
