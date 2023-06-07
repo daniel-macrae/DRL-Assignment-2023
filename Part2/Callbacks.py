@@ -45,7 +45,7 @@ class SaveOnBestTrainingRewardCallback(BaseCallback):
                     self.best_mean_reward = mean_reward
                     # Example for saving best model
                     if self.verbose > 0:
-                        print(f" *  Saving new best model to {self.save_path}_{self.n_calls}.zip")
-                    self.model.save(self.save_path + '_' + str(self.n_calls))
+                        print(f" *  Saving new best model to {self.save_path}.zip")
+                    self.model.save(self.save_path)
 
         return True
