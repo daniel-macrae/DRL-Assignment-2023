@@ -7,7 +7,7 @@ import re
 #t: Represents the elapsed time (in seconds) during that episode.
 
 log_dir = "gridsearch"  
-output_file_path = "gridsearch/grid_eval/average_rewards.csv"
+output_file_path = "grid_eval/average_rewards.csv"
 
 average_rewards = []
 
