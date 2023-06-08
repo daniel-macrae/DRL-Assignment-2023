@@ -1,4 +1,6 @@
 
+Part2/gridsearch/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
