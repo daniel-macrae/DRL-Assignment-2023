@@ -7,15 +7,15 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 ## DQN Parameters
-params = {'batch_size' : 32,
-                'gamma' : 0.99,
-                'eps_start' : 0.9,
-                'eps_end' : 0,
-                'eps_decay' : 500,
-                'learning_rate' : 1e-4,
-                'memory_buffer' : 10000,
-                'ams_grad' : True,
-                'targetnet_update_rate' : 10
+params = {  'batch_size' : 32,
+            'gamma' : 0.99,
+            'eps_start' : 0.9,
+            'eps_end' : 0,
+            'eps_decay' : 500,
+            'learning_rate' : 1e-4,
+            'memory_buffer' : 10000,
+            'ams_grad' : True,
+            'targetnet_update_rate' : 10
         }
 
 if torch.cuda.is_available():
@@ -59,7 +59,7 @@ env = CatchEnv()
 num_moves = env.get_num_actions()
 
 
-for runNumber in range(1,6): 
+for runNumber in range(6,11): 
     print("Run number:", runNumber)
     evaluation_results = [] 
 
