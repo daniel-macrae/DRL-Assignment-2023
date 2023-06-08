@@ -30,7 +30,7 @@ def grid_search(args):
     BATCH_SIZE = [16, 32, 64, 128]
     GAMMA = [0.6, 0.8, 0.9, 0.99]
     EPS_START = [0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1]
-    EPS_END = [0]
+    EPS_END = [0, 0.01, 0.05]
     EPS_DECAY = [300, 500, 700, 900]
     LR = [1e-3, 5e-4, 1e-4, 5e-5, 1e-5]
     MEMORYBUFFER = [5000, 10000, 50000]
