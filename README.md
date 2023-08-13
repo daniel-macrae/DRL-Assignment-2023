@@ -57,9 +57,13 @@ Gridsearch of the hyperparameters was conducted using the ```gridsearch.py``` sc
 
 ## Results
 
+The results of training 5 DQN models is shown below, as we can see, the models solve the environment in around 2,000 episodes (equivalent to 20,000 timesteps) of training.
+
+![alt text](Figures/DQN_results.jpg)
 
 
-![alt text](Figures/plot_5runs.eps)
-
+Below are the results of the PPO models. They are able to solve the environment in around 2.5 to 3 million timesteps of training, consistently collecting around 300 points in under 1,600 timesteps (the threshold of the task to be considered "completed").
 
 ![alt text](Figures/PPO%20Episode%20Plots.png)
+
+
