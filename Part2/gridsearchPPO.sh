@@ -6,4 +6,4 @@
 #SBATCH --mem=4GB
 module load Miniconda3
 source activate gymEnv
-python gridsearchDan.py --n_envs 16
+python gridsearch.py --n_envs 16

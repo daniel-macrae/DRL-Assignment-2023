@@ -59,7 +59,7 @@ env = CatchEnv()
 num_moves = env.get_num_actions()
 
 
-for runNumber in range(6,11): 
+for runNumber in range(1,6): 
     print("Run number:", runNumber)
     evaluation_results = [] 
 
