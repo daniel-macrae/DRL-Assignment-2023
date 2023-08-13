@@ -62,4 +62,4 @@ Gridsearch of the hyperparameters was conducted using the ```gridsearch.py``` sc
 ![alt text](Figures/plot_5runs.eps)
 
 
-![alt text]("Figures/PPO Episode Plots.png")
+![alt text](Figures/PPO%20Episode%20Plots.png)
